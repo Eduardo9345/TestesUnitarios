@@ -8,16 +8,28 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
 //import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
 @DisplayNameGeneration(DisplayNameGenerator.Simple.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class) // Em geral, os testes não precisam de ordem, porém existem situações em que ordenar o projeto é util
+/*
+ * MethodOrderer.DisplayName
+
+    MethodOrderer.MethodName
+
+    MethodOrderer.Random
+
+    MethodOrderer.OrderAnnotation
+        @Order: quanto menor o número, maior a prioridade (números negativos são permitidos)
+ */
 public class ExemploServiceTest {
 
     @Test
     @DisplayName("Testae somar valor e verificar se são ou não iguais")
+    @Order(-1)
     //assert Equals
     void testeSomarValorVerificarSeIgualENaoIgual(){
 
@@ -38,6 +50,7 @@ public class ExemploServiceTest {
 
     //assert Null
     @Test
+    @Order(-2)
     void testeVerificarSeObjetoNulo(){
         ExemploService exemploService = new ExemploService();
         assertNull(exemploService.verificarNulo(null), "objeto deve ser nulo");
@@ -46,6 +59,7 @@ public class ExemploServiceTest {
 
     // assert true ou false
     @Test
+    @Order(0)
     void testeVerificarSeValorMaiorQue(){
         ExemploService exemploService = new ExemploService();
         assertTrue(exemploService.verificarSeMaiorQue(10, 5), "valor 1 deve ser maior que valor 2");
